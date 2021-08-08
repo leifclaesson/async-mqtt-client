@@ -772,8 +772,9 @@ void AsyncMqttClient::connect() {
 }
 
 void AsyncMqttClient::disconnect(bool force) {
-  if (!_connected) return;
-  if (!_lockMutiConnections) return;
+  if (!_connected && !_lockMutiConnections) return;	//LC
+/*  if (!_connected) return;
+  if (!_lockMutiConnections) return;*/
   _lockMutiConnections = false;
   if (force) {
     _client.close(true);
